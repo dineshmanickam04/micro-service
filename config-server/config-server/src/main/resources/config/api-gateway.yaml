@@ -1,0 +1,26 @@
+server:
+  port: 8060
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: student-service
+          uri: lb://student-service
+          predicates:
+            - Path=/student/**
+        - id: school-service
+          uri: lb://school-service
+          predicates:
+            - Path=/school/**
+        - id: department-service
+          uri: lb://department
+          predicates:
+            - Path=/department/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
